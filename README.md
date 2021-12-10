@@ -24,7 +24,7 @@
 
 [![product-screenshot]](https://pythonrepo.com/repo/cvzone-cvzone)
 
-It is a Computer vision package that makes it easy to operate image processing and AI functions. It mainly uses OpenCV and Mediapipe libraries.
+It is a Computer vision package that makes it easy to operate image processing and AI functions. It mainly uses OpenCV and Google Mediapipe libraries.
 
 Usage areas
 * Military Industry (submarine sonic wave scans), underwater imaging.
@@ -47,7 +47,6 @@ Libraries and programming language I use.
 * [Python](https://www.python.org/)
 * [OpenCV](https://opencv.org/)
 * [Mediapip](https://mediapipe.dev/)
-* [Numpy](https://numpy.org/)  
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -67,84 +66,45 @@ The materials you need to do this.
    ```sh
    ! pip install mediapip
    ```
-   ```sh
-   ! pip install numpy
-   ```
+   
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-### Basic Code Example
+### Girl Face Detection in Images
+
+![girl-detector]
 
 ```
-import cvzone
 import cv2
+import mediapipe as mp
 
+#Image Path
+image = cv2.imread("Brown-hair-girl-portrait-face_1280x800.jpg")
+height, width, _ = image.shape
+print("Height, width", height, width)
+
+```
+
+### My Face Detection in PC Camera
+
+![my-faceDetection]
+
+```
+import cv2
+import mediapipe as mp
+
+#Camera Capture
 cap = cv2.VideoCapture(0)
-cap.set(3, 1280)
-cap.set(4, 720)
-detector = cvzone.HandDetector(detectionCon=0.5, maxHands=1)
 
 while True:
-    # Get image frame
-    success, img = cap.read()
+    #Video Path
+    ret, image = cap.read()
+    if ret is not True:
+        break
 
-    # Find the hand and its landmarks
-    img = detector.findHands(img)
-    lmList, bbox = detector.findPosition(img)
-    
-    # Display
-    cv2.imshow("Image", img)
-    cv2.waitKey(1)
-
-```
-
-### Finding How many finger are up
-```
-if lmList:
-fingers = detector.fingersUp()
-totalFingers = fingers.count(1)
-cv2.putText(img, f'Fingers:{totalFingers}', (bbox[0] + 200, bbox[1] - 30),
-            cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
-```
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### My Hand Detection
-
-![my-handDetection]
-
-```
-import mediapipe as mp
-import cv2
-import numpy as np 
-
-mp_drawing = mp.solutions.drawing_utils
-mp_hands = mp.solutions.hands
-
-cap = cv2.VideoCapture(0)
-with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) as hands:
-    while cap.isOpened():
-        ret, frame = cap.read()
-        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        image = cv2.flip(image, 1)
-        image.flags.writeable = False
-        results = hands.process(image)
-        image.flags.writeable = True
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        #print(results)
-        if results.multi_hand_landmarks:
-            for num, hand in enumerate(results.multi_hand_landmarks):
-                mp_drawing.draw_landmarks(image, hand, mp_hands.HAND_CONNECTIONS,
-                                          mp_drawing.DrawingSpec(color=(217, 133, 0), thickness=2, circle_radius=4),
-                                          mp_drawing.DrawingSpec(color=(105, 0, 101), thickness=2, circle_radius=2),)
-                cv2.imshow('HandTracking', image)
-                if cv2.waitKey(10) & 0xFF == ord('q'):
-                    break
-cap.release()
-cv2.destroyAllWindows()
-mp_drawing.DrawingSpec()
 ```
 
 <!-- CONTACT -->
@@ -163,5 +123,6 @@ Linkedin - [oguzzmuslu](https://www.linkedin.com/in/oguzzmuslu/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[my-handDetection]: https://github.com/ogzmsl/HandDetection/blob/main/detectionn.png
-[product-screenshot]: https://github.com/ogzmsl/HandDetection/blob/main/screenshott.jpg
+[my-faceDetection]: https://raw.githubusercontent.com/ogzmsl/FacialDetectionLandmarks/main/my-face.jpeg
+[product-screenshot]: https://raw.githubusercontent.com/ogzmsl/FacialDetectionLandmarks/main/facial-detector.jpg
+[girl-detector]: https://raw.githubusercontent.com/ogzmsl/FacialDetectionLandmarks/main/girl-detector.jpeg
