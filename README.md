@@ -164,4 +164,4 @@ Linkedin - [oguzzmuslu](https://www.linkedin.com/in/oguzzmuslu/)
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [my-handDetection]: https://github.com/ogzmsl/HandDetection/blob/main/detectionn.png
-[product-screenshot]: https://github.com/ogzmsl/HandDetection/blob/main/screenshot.jpg
+[product-screenshot]: https://github.com/ogzmsl/HandDetection/blob/main/screenshott.jpg
